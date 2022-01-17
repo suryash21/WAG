@@ -58,7 +58,7 @@ steps:
       PathtoPublish: 'android/app/build/outputs/apk/release'
       ArtifactName: 'android'
       publishLocation: 'Container'
-    - task: InstallAppleProvisioningProfile@1
+  - task: InstallAppleProvisioningProfile@1
     displayName: 'Install Apple Provisioning Profile'
     inputs:
       provisioningProfileLocation: 'secureFiles'
