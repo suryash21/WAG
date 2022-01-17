@@ -7,8 +7,6 @@ trigger:
   branches:
     include:
       - master
-variables:
-  - group: Mobile # change it to the name you have set
 pool:
   vmImage: 'macos-latest'
 steps:
