@@ -58,35 +58,7 @@ steps:
       PathtoPublish: 'android/app/build/outputs/apk/release'
       ArtifactName: 'android'
       publishLocation: 'Container'
-  - task: AppCenterDistribute@3
-    displayName: 'Upload APK to AppCenter'
-    inputs:
-      serverEndpoint: 'App Center'
-      appSlug: 'hnadeem/MyProject-Android'
-      appFile: 'android/app/build/outputs/apk/release/app-release-unsigned.apk'
-      releaseNotesOption: 'file'
-      isMandatory: true
-      destinationType: 'groups'
-      distributionGroupId: 'f940ccde-a812-4ade-98d8-76c3ab1d0c2e'
-      isSilent: true
-  - script: |
-      tag="mobile_$(NEW_VERSION)"
-      echo "New tag $tag"
-      git add *
-      git commit -m "Update version from $(OLD_VERSION) to $(NEW_VERSION)"
-      git tag $tag
-      git pull --rebase origin $(Build.SourceBranchName)
-      git push origin $(Build.SourceBranchName)
-      git push --tags
-    displayName: Bump commit
-  - task: InstallAppleCertificate@2
-    displayName: Install Apple Certificate
-    inputs:
-      certSecureFile: 'MobileProd.p12'
-      certPwd: '$(AppleCertificatePassword)'
-      keychain: 'temp'
-      deleteCert: true
-  - task: InstallAppleProvisioningProfile@1
+    - task: InstallAppleProvisioningProfile@1
     displayName: 'Install Apple Provisioning Profile'
     inputs:
       provisioningProfileLocation: 'secureFiles'
@@ -122,15 +94,4 @@ steps:
       PathtoPublish: '$(build.artifactStagingDirectory)'
       ArtifactName: 'ios'
       publishLocation: 'Container'
-  - task: AppCenterDistribute@3
-    displayName: 'Upload IPA to AppCenter'
-    inputs:
-      serverEndpoint: 'App Center'
-      appSlug: 'hnadeem/MyProject-iOS'
-      appFile: 'output/MyProject.ipa'
-      releaseNotesOption: 'file'
-      isMandatory: true
-      destinationType: 'groups'
-      distributionGroupId: '058a4704-ea24-4877-a2f0-bdfaff9335dc'
-      isSilent: true
-
+  
