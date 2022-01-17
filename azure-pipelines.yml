@@ -51,15 +51,7 @@ steps:
       jdkVersionOption: '1.8'
       gradleOptions: '-Xmx3072m'
       sonarQubeRunAnalysis: false
-  - task: AndroidSigning@3
-    displayName: 'Sign APK'
-    inputs:
-      apkFiles: 'android/app/build/outputs/apk/release/*.apk'
-      apksignerKeystoreFile: 'mobile-prod.keystore'
-      apksignerKeystorePassword: '$(AndroidKeyStorePassword)'
-      apksignerKeystoreAlias: '$(AndroidKeyAlias)'
-      apksignerKeyPassword: '$(AndroidKeyAliasPassword)'
-      zipalign: true
+  
   - task: PublishBuildArtifacts@1
     displayName: 'Publish APK to artifacts'
     inputs:
